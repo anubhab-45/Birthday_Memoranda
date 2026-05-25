@@ -5,16 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rita Dear — Birthday Memoranda ❤️</title>
 
+  <!-- Google Fonts for better Bengali Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* CSS Variables for easy theme management */
+    :root {
+      --bg-dark: #07040a;
+      --pink-primary: #ff5c9b;
+      --pink-light: #ffc1d6;
+      --pink-gradient: linear-gradient(135deg, #ff4d88, #ff93b8);
+      --glass-bg: rgba(10, 5, 10, 0.58);
+      --glass-border: rgba(255, 255, 255, 0.18);
+      --text-main: #ffffff;
+      --text-muted: rgba(255, 255, 255, 0.86);
+      --font-bengali: 'Hind Siliguri', sans-serif;
+    }
+
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box; 
+    }
 
     html, body {
       width: 100%;
       height: 100%;
       overflow: hidden;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #07040a;
-      color: #fff;
+      font-family: var(--font-bengali);
+      background: var(--bg-dark);
+      color: var(--text-main);
     }
 
     body {
@@ -24,11 +46,48 @@
         linear-gradient(135deg, #07040a, #130912 55%, #050505);
     }
 
+    /* Background Music Button */
+    .music-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 92, 155, 0.3);
+    }
+
+    .music-toggle:hover {
+      transform: scale(1.1);
+      background: rgba(255, 92, 155, 0.2);
+    }
+
+    .music-toggle.playing {
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 92, 155, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(255, 92, 155, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 92, 155, 0); }
+    }
+
     .deck {
       width: 100vw;
       height: 100vh;
       display: flex;
-      transition: transform 0.75s cubic-bezier(.77,0,.18,1);
+      transition: transform 0.75s cubic-bezier(0.77, 0, 0.18, 1);
       will-change: transform;
     }
 
@@ -39,7 +98,7 @@
       overflow-y: auto;
       padding: 58px 5vw 82px;
       scrollbar-width: thin;
-      scrollbar-color: #ff5c9b transparent;
+      scrollbar-color: var(--pink-primary) transparent;
     }
 
     .slide::before {
@@ -47,46 +106,41 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      background-image:
-        radial-gradient(circle, rgba(255,255,255,.10) 1px, transparent 1px);
+      background-image: radial-gradient(circle, rgba(255, 255, 255, 0.10) 1px, transparent 1px);
       background-size: 36px 36px;
-      opacity: .18;
+      opacity: 0.18;
       z-index: 0;
     }
 
+    /* Cover Styling */
     .cover {
       display: grid;
       place-items: center;
       text-align: center;
       overflow: hidden;
-      background:
-        linear-gradient(to bottom, rgba(0,0,0,.38), rgba(0,0,0,.92)),
-        url("WhatsApp Image 2026-05-24 at 6.23.55 PM.jpeg");
-      background-size: cover;
-      background-position: center;
     }
 
     .cover-card, .final-card {
       position: relative;
       z-index: 3;
       width: min(92vw, 760px);
-      padding: 26px 22px;
+      padding: 35px 25px;
       border-radius: 34px;
-      background: rgba(10, 5, 10, .58);
-      border: 1px solid rgba(255,255,255,.18);
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
       backdrop-filter: blur(16px);
-      box-shadow: 0 30px 90px rgba(0,0,0,.72);
-      animation: lift .9s ease both;
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.72);
+      animation: lift 0.9s ease both;
     }
 
     @keyframes lift {
-      from { opacity: 0; transform: translateY(22px) scale(.97); }
+      from { opacity: 0; transform: translateY(22px) scale(0.97); }
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     .cake {
       font-size: clamp(72px, 16vw, 142px);
-      filter: drop-shadow(0 0 28px rgba(255, 95, 150, .9));
+      filter: drop-shadow(0 0 28px rgba(255, 95, 150, 0.9));
       animation: floatCake 2.4s ease-in-out infinite alternate;
     }
 
@@ -100,24 +154,25 @@
     .cover h1 {
       margin-top: 6px;
       font-size: clamp(38px, 7vw, 76px);
-      line-height: 1.08;
-      color: #ff5c9b;
-      text-shadow: 0 0 28px rgba(255,92,155,.65);
+      line-height: 1.2;
+      color: var(--pink-primary);
+      text-shadow: 0 0 28px rgba(255, 92, 155, 0.65);
+      font-weight: 700;
     }
 
     .cover h2 {
       margin-top: 12px;
       font-size: clamp(20px, 4vw, 34px);
       color: #ffe1ec;
-      font-weight: 750;
+      font-weight: 700;
     }
 
     .cover p {
       margin: 18px auto 0;
       max-width: 620px;
-      font-size: clamp(15px, 2vw, 19px);
+      font-size: clamp(16px, 2vw, 20px);
       line-height: 1.85;
-      color: rgba(255,255,255,.86);
+      color: var(--text-muted);
     }
 
     .date-pill {
@@ -125,51 +180,53 @@
       align-items: center;
       gap: 8px;
       margin-top: 18px;
-      padding: 11px 18px;
+      padding: 11px 22px;
       border-radius: 999px;
-      background: rgba(255,92,155,.20);
-      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255, 92, 155, 0.20);
+      border: 1px solid var(--glass-border);
       color: #ffd7e6;
-      font-weight: 800;
-      letter-spacing: .5px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
     }
 
     .start-btn {
-      margin-top: 24px;
+      margin-top: 28px;
       border: 0;
       cursor: pointer;
-      padding: 14px 28px;
+      padding: 15px 35px;
       border-radius: 999px;
-      background: linear-gradient(135deg, #ff4d88, #ff93b8);
+      background: var(--pink-gradient);
       color: white;
-      font-size: 16px;
-      font-weight: 900;
-      box-shadow: 0 18px 45px rgba(255,77,136,.35);
-      transition: transform .25s ease, box-shadow .25s ease;
+      font-size: 18px;
+      font-weight: 700;
+      font-family: var(--font-bengali);
+      box-shadow: 0 18px 45px rgba(255, 77, 136, 0.35);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
     .start-btn:hover {
-      transform: scale(1.06);
-      box-shadow: 0 20px 55px rgba(255,77,136,.55);
+      transform: scale(1.06) translateY(-3px);
+      box-shadow: 0 25px 55px rgba(255, 77, 136, 0.55);
     }
 
+    /* Chapter Headers */
     .chapter-head {
       position: relative;
       z-index: 3;
       width: min(940px, 100%);
       margin: 0 auto 28px;
       text-align: center;
-      padding: 18px 18px 20px;
+      padding: 20px 20px 25px;
       border-radius: 30px;
-      background: rgba(255,255,255,.055);
-      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255, 255, 255, 0.055);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       backdrop-filter: blur(10px);
     }
 
     .chapter-kicker {
       color: #ff6fa8;
-      font-size: 14px;
-      font-weight: 900;
+      font-size: 15px;
+      font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
       margin-bottom: 8px;
@@ -177,18 +234,19 @@
 
     .chapter-head h2 {
       font-size: clamp(30px, 5.8vw, 58px);
-      line-height: 1.08;
+      line-height: 1.2;
       margin-bottom: 12px;
     }
 
     .chapter-head p {
       max-width: 760px;
       margin: 0 auto;
-      color: rgba(255,255,255,.78);
-      font-size: clamp(14px, 2vw, 18px);
+      color: rgba(255, 255, 255, 0.78);
+      font-size: clamp(15px, 2vw, 19px);
       line-height: 1.75;
     }
 
+    /* Grids & Memories */
     .memory-grid {
       position: relative;
       z-index: 3;
@@ -196,32 +254,32 @@
       margin: 0 auto;
       display: grid;
       grid-template-columns: repeat(6, 1fr);
-      grid-auto-rows: 145px;
-      gap: 12px;
+      grid-auto-rows: 150px;
+      gap: 15px;
     }
 
     .memory-card {
       position: relative;
       overflow: hidden;
       border-radius: 24px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.12);
-      box-shadow: 0 18px 45px rgba(0,0,0,.45);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
       cursor: pointer;
       opacity: 0;
-      transform: translateY(18px) scale(.98);
-      animation: cardIn .7s ease forwards;
+      transform: translateY(18px) scale(0.98);
+      animation: cardIn 0.7s ease forwards;
     }
 
-    .memory-card:nth-child(1) { grid-column: span 2; grid-row: span 2; animation-delay: .02s; }
-    .memory-card:nth-child(2) { grid-column: span 2; grid-row: span 1; animation-delay: .08s; }
-    .memory-card:nth-child(3) { grid-column: span 2; grid-row: span 2; animation-delay: .14s; }
-    .memory-card:nth-child(4) { grid-column: span 2; grid-row: span 1; animation-delay: .20s; }
-    .memory-card:nth-child(5) { grid-column: span 2; grid-row: span 2; animation-delay: .26s; }
-    .memory-card:nth-child(6) { grid-column: span 2; grid-row: span 1; animation-delay: .32s; }
-    .memory-card:nth-child(7) { grid-column: span 3; grid-row: span 2; animation-delay: .38s; }
-    .memory-card:nth-child(8) { grid-column: span 3; grid-row: span 2; animation-delay: .44s; }
-    .memory-card:nth-child(9) { grid-column: span 2; grid-row: span 2; animation-delay: .50s; }
+    .memory-card:nth-child(1) { grid-column: span 2; grid-row: span 2; animation-delay: 0.02s; }
+    .memory-card:nth-child(2) { grid-column: span 2; grid-row: span 1; animation-delay: 0.08s; }
+    .memory-card:nth-child(3) { grid-column: span 2; grid-row: span 2; animation-delay: 0.14s; }
+    .memory-card:nth-child(4) { grid-column: span 2; grid-row: span 1; animation-delay: 0.20s; }
+    .memory-card:nth-child(5) { grid-column: span 2; grid-row: span 2; animation-delay: 0.26s; }
+    .memory-card:nth-child(6) { grid-column: span 2; grid-row: span 1; animation-delay: 0.32s; }
+    .memory-card:nth-child(7) { grid-column: span 3; grid-row: span 2; animation-delay: 0.38s; }
+    .memory-card:nth-child(8) { grid-column: span 3; grid-row: span 2; animation-delay: 0.44s; }
+    .memory-card:nth-child(9) { grid-column: span 2; grid-row: span 2; animation-delay: 0.50s; }
 
     @keyframes cardIn {
       to { opacity: 1; transform: translateY(0) scale(1); }
@@ -232,27 +290,27 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform .65s ease, filter .65s ease;
+      transition: transform 0.65s ease, filter 0.65s ease;
     }
 
     .memory-card:hover img {
-      transform: scale(1.08);
-      filter: brightness(1.07) saturate(1.08);
+      transform: scale(1.1);
+      filter: brightness(1.1) saturate(1.1);
     }
 
     .memory-card::after {
       content: "❤️";
       position: absolute;
-      right: 12px;
-      bottom: 10px;
-      font-size: 18px;
+      right: 15px;
+      bottom: 12px;
+      font-size: 20px;
       opacity: 0;
-      transform: scale(.7);
-      transition: .3s;
+      transform: scale(0.5);
+      transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     .memory-card:hover::after {
-      opacity: .85;
+      opacity: 1;
       transform: scale(1);
     }
 
@@ -260,16 +318,16 @@
       position: relative;
       z-index: 3;
       width: min(820px, 100%);
-      margin: 24px auto 0;
-      padding: 18px 20px;
+      margin: 30px auto 0;
+      padding: 20px 25px;
       border-radius: 26px;
-      background: rgba(255,92,155,.11);
-      border: 1px solid rgba(255,255,255,.13);
+      background: rgba(255, 92, 155, 0.11);
+      border: 1px solid rgba(255, 255, 255, 0.13);
       color: #ffdce9;
       text-align: center;
-      font-size: clamp(17px, 2.8vw, 26px);
+      font-size: clamp(18px, 2.8vw, 26px);
       line-height: 1.65;
-      font-weight: 750;
+      font-weight: 600;
     }
 
     .video-grid {
@@ -279,112 +337,119 @@
       margin: 0 auto;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-      gap: 18px;
+      gap: 20px;
     }
 
     video {
       width: 100%;
       border-radius: 26px;
       background: #000;
-      border: 1px solid rgba(255,255,255,.14);
-      box-shadow: 0 20px 60px rgba(0,0,0,.55);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
     }
 
+    /* Final Slide */
     .final {
       display: grid;
       place-items: center;
       text-align: center;
       background:
-        radial-gradient(circle at center, rgba(255,92,155,.22), transparent 42%),
-        #07040a;
+        radial-gradient(circle at center, rgba(255, 92, 155, 0.22), transparent 42%),
+        var(--bg-dark);
     }
 
     .final-card h2 {
-      color: #ff5c9b;
+      color: var(--pink-primary);
       font-size: clamp(36px, 7vw, 78px);
-      line-height: 1.12;
+      line-height: 1.2;
       margin-bottom: 18px;
     }
 
     .final-card p {
-      color: rgba(255,255,255,.84);
-      font-size: clamp(15px, 2.4vw, 22px);
+      color: var(--text-muted);
+      font-size: clamp(16px, 2.4vw, 22px);
       line-height: 1.9;
       margin-top: 14px;
     }
 
     .signature {
-      margin-top: 26px;
+      margin-top: 30px;
       color: #ffdce9;
-      font-size: 24px;
-      font-weight: 900;
+      font-size: 26px;
+      font-weight: 700;
+      font-style: italic;
     }
 
+    /* UI Elements */
     .progress {
       position: fixed;
       left: 50%;
-      bottom: 18px;
+      bottom: 20px;
       transform: translateX(-50%);
       z-index: 70;
-      width: min(420px, 84vw);
-      padding: 10px 14px;
+      width: min(450px, 85vw);
+      padding: 12px 18px;
       border-radius: 999px;
-      background: rgba(0,0,0,.58);
-      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0, 0, 0, 0.65);
+      border: 1px solid var(--glass-border);
       backdrop-filter: blur(14px);
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 15px;
     }
 
     .bar {
       flex: 1;
-      height: 7px;
+      height: 8px;
       overflow: hidden;
       border-radius: 999px;
-      background: rgba(255,255,255,.15);
+      background: rgba(255, 255, 255, 0.15);
     }
 
     .bar-fill {
       height: 100%;
       width: 0%;
       border-radius: 999px;
-      background: linear-gradient(90deg, #ff4d88, #ffc1d6);
-      transition: width .45s ease;
+      background: var(--pink-gradient);
+      transition: width 0.45s ease;
     }
 
     .counter {
       min-width: 54px;
       text-align: right;
-      color: rgba(255,255,255,.82);
-      font-size: 13px;
-      font-weight: 800;
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 14px;
+      font-weight: 700;
     }
 
     .hint {
       position: fixed;
-      top: 14px;
+      top: 20px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 70;
-      padding: 9px 16px;
+      padding: 10px 20px;
       border-radius: 999px;
-      background: rgba(0,0,0,.46);
-      border: 1px solid rgba(255,255,255,.13);
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid var(--glass-border);
       backdrop-filter: blur(12px);
-      color: rgba(255,255,255,.78);
-      font-size: 13px;
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 14px;
+      font-weight: 600;
       text-align: center;
+      letter-spacing: 0.5px;
     }
 
+    /* Lightbox */
     .lightbox {
       position: fixed;
       inset: 0;
       z-index: 200;
       display: none;
       place-items: center;
-      padding: 18px;
-      background: rgba(0,0,0,.92);
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(8px);
     }
 
     .lightbox.active { display: grid; }
@@ -393,26 +458,36 @@
       max-width: 95vw;
       max-height: 90vh;
       object-fit: contain;
-      border-radius: 22px;
-      box-shadow: 0 20px 80px rgba(0,0,0,.85);
+      border-radius: 16px;
+      box-shadow: 0 20px 80px rgba(0, 0, 0, 0.85);
+      animation: zoomIn 0.3s ease;
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
 
     .close-lightbox {
       position: fixed;
-      top: 16px;
-      right: 22px;
+      top: 20px;
+      right: 25px;
       color: white;
-      font-size: 42px;
+      font-size: 45px;
       cursor: pointer;
       z-index: 250;
+      transition: transform 0.2s;
     }
 
+    .close-lightbox:hover { transform: scale(1.1) rotate(90deg); color: var(--pink-primary); }
+
+    /* Hearts */
     .heart {
       position: fixed;
       top: -20px;
       z-index: 1;
       pointer-events: none;
-      color: rgba(255, 120, 170, .35);
+      color: rgba(255, 120, 170, 0.35);
       animation: fall linear forwards;
     }
 
@@ -420,13 +495,14 @@
       to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
     }
 
+    /* Responsive Design */
     @media (max-width: 760px) {
-      .slide { padding: 58px 4vw 80px; }
-
+      .slide { padding: 80px 5vw 90px; }
+      
       .memory-grid {
         grid-template-columns: repeat(2, 1fr);
         grid-auto-rows: 165px;
-        gap: 10px;
+        gap: 12px;
       }
 
       .memory-card,
@@ -442,14 +518,24 @@
         grid-row: span 2;
       }
 
-      .chapter-head { margin-bottom: 18px; padding: 16px; }
-      .quote-box { margin-top: 18px; padding: 16px; }
-      .hint { width: max-content; max-width: 92vw; }
+      .chapter-head { margin-bottom: 18px; padding: 18px; }
+      .quote-box { margin-top: 20px; padding: 18px; }
+      .hint { width: max-content; max-width: 90vw; }
+      .music-toggle { top: 70px; right: 15px; } /* Moved slightly down on mobile so it doesn't overlap hint */
     }
   </style>
 </head>
 
 <body>
+
+  <!-- Background Music Element -->
+  <!-- মিউজিক ফাইল যোগ করতে 'your-music-file.mp3' এর জায়গায় তোমার গানের ফাইলের নাম দাও -->
+  <audio id="bgMusic" loop>
+    <source src="your-music-file.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Music Toggle Button -->
+  <button id="musicToggle" class="music-toggle" onclick="toggleMusic()" title="Play/Pause Music">🎵</button>
 
   <div class="hint">বাম/ডান দিকে swipe করো ❤️</div>
 
@@ -459,12 +545,12 @@
         <div class="cake">🎂</div>
         <h1>শুভ জন্মদিন Rita</h1>
         <h2>১৩ / ০৬ / ২০২৬</h2>
-        <div class="date-pill">ভালোবাসা দিয়ে বানানো স্মৃতির ওয়েবসাইট</div>
+        <div class="date-pill">ভালোবাসা দিয়ে বানানো স্মৃতির ওয়েবসাইট</div>
         <p>
-          এটা শুধু একটা ওয়েবসাইট না।  
-          এটা আমাদের কিছু হাসি, কিছু রঙ, কিছু পথচলা আর অনেকগুলো নরম স্মৃতির ছোট্ট জায়গা।
+          এটা শুধু একটা ওয়েবসাইট না।  
+          এটা আমাদের কিছু হাসি, কিছু রঙ, কিছু পথচলা আর অনেকগুলো নরম স্মৃতির ছোট্ট জায়গা।
         </p>
-        <button class="start-btn" onclick="goToSlide(1)">স্মৃতির দরজা খোলো ❤️</button>
+        <button class="start-btn" onclick="startJourney()">স্মৃতির দরজা খোলো ❤️</button>
       </div>
     </section>
   </main>
@@ -480,12 +566,13 @@
   </div>
 
   <script>
+    // Chapter Data
     const chapters = [
       {
-        kicker: "অধ্যায় ১",
-        title: "ভালোবাসার নাম হওয়ার আগে",
-        text: "শুরুটা খুব সাধারণ ছিল। কিছু ছবি, কিছু লাজুক হাসি, আর ধীরে ধীরে সাধারণ দিনগুলোই স্মৃতি হয়ে উঠেছিল।",
-        quote: "কিছু স্মৃতি চিৎকার করে শুরু হয় না, চুপচাপ হৃদয়ের ভেতর জায়গা করে নেয়।",
+        kicker: "অধ্যায় ১",
+        title: "ভালোবাসার নাম হওয়ার আগে",
+        text: "শুরুটা খুব সাধারণ ছিল। কিছু ছবি, কিছু লাজুক হাসি, আর ধীরে ধীরে সাধারণ দিনগুলোই স্মৃতি হয়ে উঠেছিল।",
+        quote: "কিছু স্মৃতি চিৎকার করে শুরু হয় না, চুপচাপ হৃদয়ের ভেতর জায়গা করে নেয়।",
         images: [
           "WhatsApp Image 2026-05-24 at 6.23.11 PM.jpeg",
           "WhatsApp Image 2026-05-24 at 6.23.23 PM.jpeg",
@@ -497,10 +584,10 @@
         ]
       },
       {
-        kicker: "অধ্যায় ২",
+        kicker: "অধ্যায় ২",
         title: "আমাদের রঙের দিনগুলো",
         text: "হোলির ছবিগুলোতে আছে দুষ্টুমি, রঙ, ক্লান্ত মুখের হাসি, আর একসাথে থাকার একদম আসল আনন্দ।",
-        quote: "তোমার পাশে থাকলে এলোমেলো রঙও সুন্দর হয়ে যায়।",
+        quote: "তোমার পাশে থাকলে এলোমেলো রঙও সুন্দর হয়ে যায়।",
         images: [
           "WhatsApp Image 2026-05-24 at 6.23.38 PM (1).jpeg",
           "WhatsApp Image 2026-05-24 at 6.23.38 PM.jpeg",
@@ -513,10 +600,10 @@
         ]
       },
       {
-        kicker: "অধ্যায় ৩",
-        title: "যে মেয়েটার প্রেমে পড়লাম",
-        text: "Rita, তোমার সৌন্দর্য শুধু সাজে নয়—তোমার চোখে, শান্ত হাসিতে, আর স্বাভাবিক উপস্থিতিতে।",
-        quote: "কেউ কেউ শুধু সুন্দর দেখায়, তুমি সুন্দর অনুভব করাও।",
+        kicker: "অধ্যায় ৩",
+        title: "যে মেয়েটার প্রেমে পড়লাম",
+        text: "Rita, তোমার সৌন্দর্য শুধু সাজে নয়—তোমার চোখে, শান্ত হাসিতে, আর স্বাভাবিক উপস্থিতিতে।",
+        quote: "কেউ কেউ শুধু সুন্দর দেখায়, তুমি সুন্দর অনুভব করাও।",
         images: [
           "WhatsApp Image 2026-05-24 at 6.23.41 PM (1).jpeg",
           "WhatsApp Image 2026-05-24 at 6.23.41 PM (2).jpeg",
@@ -527,10 +614,10 @@
         ]
       },
       {
-        kicker: "অধ্যায় ৪",
+        kicker: "অধ্যায় ৪",
         title: "ছোট ছোট পথচলা",
-        text: "রাস্তা, বাস, স্টেশন, অপেক্ষা—জায়গাগুলো বিশেষ ছিল না, কিন্তু তোমার জন্য সেগুলো স্মৃতি হয়ে গেছে।",
-        quote: "প্রতিটা পথ যেন একটু একটু করে তোমার দিকেই নিয়ে গেছে।",
+        text: "রাস্তা, বাস, স্টেশন, অপেক্ষা—জায়গাগুলো বিশেষ ছিল না, কিন্তু তোমার জন্য সেগুলো স্মৃতি হয়ে গেছে।",
+        quote: "প্রতিটা পথ যেন একটু একটু করে তোমার দিকেই নিয়ে গেছে।",
         images: [
           "WhatsApp Image 2026-05-24 at 6.23.43 PM (2).jpeg",
           "WhatsApp Image 2026-05-24 at 6.23.43 PM.jpeg",
@@ -541,9 +628,9 @@
         ]
       },
       {
-        kicker: "অধ্যায় ৫",
+        kicker: "অধ্যায় ৫",
         title: "পিঙ্ক ড্রেসের গল্প",
-        text: "এই অধ্যায়টা সবচেয়ে সিনেম্যাটিক—গোলাপি রং, বাগান, মন্দিরের আলো, আর একে অপরের দিকে তাকানোর নরম মুহূর্ত।",
+        text: "এই অধ্যায়টা সবচেয়ে সিনেম্যাটিক—গোলাপি রং, বাগান, মন্দিরের আলো, আর একে অপরের দিকে তাকানোর নরম মুহূর্ত।",
         quote: "কিছু দিন সাধারণ থাকে না, পরে বুঝি সেগুলো অমূল্য ছিল।",
         images: [
           "WhatsApp Image 2026-05-24 at 6.23.45 PM (2).jpeg",
@@ -556,10 +643,10 @@
         ]
       },
       {
-        kicker: "অধ্যায় ৬",
-        title: "নিরাপদ জায়গা",
-        text: "কিছু ছবি ভালোবাসা দেখায়, কিছু ছবি বিশ্বাস দেখায়। এই অধ্যায়টা সেই শান্ত আশ্রয়ের।",
-        quote: "সব ভালোবাসা শব্দ করে না, কিছু ভালোবাসা শুধু শান্তি দেয়।",
+        kicker: "অধ্যায় ৬",
+        title: "নিরাপদ জায়গা",
+        text: "কিছু ছবি ভালোবাসা দেখায়, কিছু ছবি বিশ্বাস দেখায়। এই অধ্যায়টা সেই শান্ত আশ্রয়ের।",
+        quote: "সব ভালোবাসা শব্দ করে না, কিছু ভালোবাসা শুধু শান্তি দেয়।",
         images: [
           "WhatsApp Image 2026-05-24 at 6.23.48 PM (1).jpeg",
           "WhatsApp Image 2026-05-24 at 6.23.48 PM (2).jpeg",
@@ -570,10 +657,10 @@
         ]
       },
       {
-        kicker: "অধ্যায় ৭",
+        kicker: "অধ্যায় ৭",
         title: "চুপচাপ ভালোবাসা",
-        text: "সবচেয়ে সুন্দর মুহূর্তগুলো সবসময় নাটকীয় হয় না। কখনো শুধু পাশে দাঁড়ানোও যথেষ্ট।",
-        quote: "তুমি আমার সবচেয়ে সহজ জায়গা হয়ে গেছো।",
+        text: "সবচেয়ে সুন্দর মুহূর্তগুলো সবসময় নাটকীয় হয় না। কখনো শুধু পাশে দাঁড়ানোও যথেষ্ট।",
+        quote: "তুমি আমার সবচেয়ে সহজ জায়গা হয়ে গেছো।",
         images: [
           "WhatsApp Image 2026-05-24 at 6.23.50 PM (1).jpeg",
           "WhatsApp Image 2026-05-24 at 6.23.50 PM.jpeg",
@@ -584,10 +671,10 @@
         ]
       },
       {
-        kicker: "অধ্যায় ৮",
+        kicker: "অধ্যায় ৮",
         title: "ছোট জিনিসগুলো",
-        text: "ফুল, চুড়ি, হাতের লেখা, ছোট ছোট জিনিস—এসবই প্রমাণ করে স্মৃতি শুধু মুখে নয়, খুঁটিনাটিতেও থাকে।",
-        quote: "ভালোবাসা অনেক সময় ছোট ছোট জিনিসে লুকিয়ে থাকে।",
+        text: "ফুল, চুড়ি, হাতের লেখা, ছোট ছোট জিনিস—এসবই প্রমাণ করে স্মৃতি শুধু মুখে নয়, খুঁটিনাটিতেও থাকে।",
+        quote: "ভালোবাসা অনেক সময় ছোট ছোট জিনিসে লুকিয়ে থাকে।",
         images: [
           "WhatsApp Image 2026-05-24 at 6.23.52 PM (2).jpeg",
           "WhatsApp Image 2026-05-24 at 6.23.52 PM.jpeg",
@@ -598,9 +685,9 @@
         ]
       },
       {
-        kicker: "অধ্যায় ৯",
+        kicker: "অধ্যায় ৯",
         title: "Rita-র সৌন্দর্য",
-        text: "এই অধ্যায়টা Rita-র সেই ছবিগুলোর জন্য, যেখানে সে পরিণত, সুন্দর, কোমল আর একদম নিজের মতো।",
+        text: "এই অধ্যায়টা Rita-র সেই ছবিগুলোর জন্য, যেখানে সে পরিণত, সুন্দর, কোমল আর একদম নিজের মতো।",
         quote: "কিছু মুখ কবিতার মতো মনে থাকে।",
         images: [
           "WhatsApp Image 2026-05-24 at 6.23.54 PM.jpeg",
@@ -623,6 +710,7 @@
 
     const deck = document.getElementById("deck");
 
+    // Dynamic Element Generation
     chapters.forEach(chapter => {
       const section = document.createElement("section");
       section.className = "slide";
@@ -648,13 +736,14 @@
       deck.appendChild(section);
     });
 
+    // Video Section
     const videoSection = document.createElement("section");
     videoSection.className = "slide";
     videoSection.innerHTML = `
       <div class="chapter-head">
-        <div class="chapter-kicker">অধ্যায় ১০</div>
+        <div class="chapter-kicker">অধ্যায় ১০</div>
         <h2>চলমান স্মৃতি</h2>
-        <p>কিছু স্মৃতি শুধু ছবি হয়ে থাকে না—সেগুলো নড়ে, হাসে, শ্বাস নেয়।</p>
+        <p>কিছু স্মৃতি শুধু ছবি হয়ে থাকে না—সেগুলো নড়ে, হাসে, শ্বাস নেয়।</p>
       </div>
 
       <div class="video-grid">
@@ -665,10 +754,11 @@
         `).join("")}
       </div>
 
-      <div class="quote-box">ছবি স্মৃতিকে থামিয়ে রাখে, ভিডিও স্মৃতিকে বাঁচিয়ে রাখে।</div>
+      <div class="quote-box">ছবি স্মৃতিকে থামিয়ে রাখে, ভিডিও স্মৃতিকে বাঁচিয়ে রাখে।</div>
     `;
     deck.appendChild(videoSection);
 
+    // Final Section
     const finalSection = document.createElement("section");
     finalSection.className = "slide final";
     finalSection.innerHTML = `
@@ -676,22 +766,25 @@
         <div class="cake">🎂</div>
         <h2>শুভ জন্মদিন Rita ❤️</h2>
         <p>
-          ১৩/০৬/২০২৬ — এই ছোট্ট ওয়েবসাইটটা তোমার জন্য আমার উপহার।
-          এটা নিখুঁত হওয়ার জন্য না, এটা সত্যি হওয়ার জন্য।
+          ১৩/০৬/২০২৬ — এই ছোট্ট ওয়েবসাইটটা তোমার জন্য আমার উপহার।
+          এটা নিখুঁত হওয়ার জন্য না, এটা সত্যি হওয়ার জন্য।
         </p>
         <p>
-          কোটি কোটি মানুষের ভিড়ে, কোনোভাবে আমাদের দিনগুলো একে অপরকে খুঁজে পেয়েছিল।
-          আর আমার জীবনের নরম স্মৃতিগুলোর মধ্যে তুমি সবসময় থাকবে।
+          কোটি কোটি মানুষের ভিড়ে, কোনোভাবে আমাদের দিনগুলো একে অপরকে খুঁজে পেয়েছিল।
+          আর আমার জীবনের নরম স্মৃতিগুলোর মধ্যে তুমি সবসময় থাকবে।
         </p>
         <div class="signature">— Anubhab</div>
       </div>
     `;
     deck.appendChild(finalSection);
 
+    // Navigation Logic
     let currentSlide = 0;
     let totalSlides = document.querySelectorAll(".slide").length;
     const counter = document.getElementById("counter");
     const barFill = document.getElementById("barFill");
+    const bgMusic = document.getElementById("bgMusic");
+    const musicBtn = document.getElementById("musicToggle");
 
     function updateSlide() {
       deck.style.transform = `translateX(-${currentSlide * 100}vw)`;
@@ -718,6 +811,28 @@
       updateSlide();
     }
 
+    // Music & Start Journey Function
+    function startJourney() {
+      goToSlide(1);
+      // Try to play music when user first interacts
+      if (bgMusic.paused) {
+        bgMusic.play().then(() => {
+          musicBtn.classList.add("playing");
+        }).catch(err => console.log("Audio autoplay prevented by browser"));
+      }
+    }
+
+    function toggleMusic() {
+      if (bgMusic.paused) {
+        bgMusic.play();
+        musicBtn.classList.add("playing");
+      } else {
+        bgMusic.pause();
+        musicBtn.classList.remove("playing");
+      }
+    }
+
+    // Event Listeners (Keyboard & Touch)
     document.addEventListener("keydown", e => {
       if (e.key === "ArrowRight") nextSlide();
       if (e.key === "ArrowLeft") prevSlide();
@@ -750,6 +865,7 @@
       }
     }
 
+    // Lightbox Logic
     function openLightbox(src) {
       document.getElementById("lightboxImg").src = src;
       document.getElementById("lightbox").classList.add("active");
@@ -759,13 +875,14 @@
       document.getElementById("lightbox").classList.remove("active");
     }
 
+    // Heart Animation Logic
     function createHeart() {
       const heart = document.createElement("div");
       heart.className = "heart";
-      heart.textContent = Math.random() > .5 ? "❤️" : "💕";
+      heart.textContent = Math.random() > 0.5 ? "❤️" : "💕";
       heart.style.left = Math.random() * 100 + "vw";
-      heart.style.fontSize = Math.random() * 15 + 12 + "px";
-      heart.style.animationDuration = Math.random() * 4 + 5 + "s";
+      heart.style.fontSize = Math.random() * 15 + 14 + "px";
+      heart.style.animationDuration = Math.random() * 4 + 6 + "s";
       document.body.appendChild(heart);
       setTimeout(() => heart.remove(), 9000);
     }

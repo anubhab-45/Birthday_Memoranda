@@ -3,32 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rita Dear — Birthday Memoranda ❤️</title>
+  <title>রীতা — শুভ জন্মদিন ❤️</title>
 
-  <!-- Google Fonts for better Bengali Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* CSS Variables for easy theme management */
     :root {
       --bg-dark: #07040a;
       --pink-primary: #ff5c9b;
       --pink-light: #ffc1d6;
+      --gold-accent: #ffd700;
       --pink-gradient: linear-gradient(135deg, #ff4d88, #ff93b8);
-      --glass-bg: rgba(10, 5, 10, 0.58);
-      --glass-border: rgba(255, 255, 255, 0.18);
+      --gold-gradient: linear-gradient(135deg, #ffdf00, #d4af37);
+      --glass-bg: rgba(15, 5, 12, 0.65);
+      --glass-border: rgba(255, 255, 255, 0.15);
       --text-main: #ffffff;
-      --text-muted: rgba(255, 255, 255, 0.86);
+      --text-muted: rgba(255, 255, 255, 0.88);
       --font-bengali: 'Hind Siliguri', sans-serif;
     }
 
-    * { 
-      margin: 0; 
-      padding: 0; 
-      box-sizing: border-box; 
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     html, body {
       width: 100%;
@@ -41,12 +37,11 @@
 
     body {
       background:
-        radial-gradient(circle at 15% 10%, rgba(255, 90, 150, 0.28), transparent 35%),
-        radial-gradient(circle at 85% 85%, rgba(255, 190, 210, 0.18), transparent 35%),
-        linear-gradient(135deg, #07040a, #130912 55%, #050505);
+        radial-gradient(circle at 20% 20%, rgba(255, 92, 155, 0.25), transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.12), transparent 40%),
+        linear-gradient(135deg, #0a0508, #1a0a14 60%, #050204);
     }
 
-    /* Background Music Button */
     .music-toggle {
       position: fixed;
       top: 20px;
@@ -74,12 +69,12 @@
     }
 
     .music-toggle.playing {
-      animation: pulse 2s infinite;
+      animation: pulseMusic 2s infinite;
     }
 
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(255, 92, 155, 0.7); }
-      70% { box-shadow: 0 0 0 15px rgba(255, 92, 155, 0); }
+    @keyframes pulseMusic {
+      0% { box-shadow: 0 0 0 0 rgba(255, 92, 155, 0.6); }
+      70% { box-shadow: 0 0 0 12px rgba(255, 92, 155, 0); }
       100% { box-shadow: 0 0 0 0 rgba(255, 92, 155, 0); }
     }
 
@@ -87,7 +82,7 @@
       width: 100vw;
       height: 100vh;
       display: flex;
-      transition: transform 0.75s cubic-bezier(0.77, 0, 0.18, 1);
+      transition: transform 0.8s cubic-bezier(0.8, 0, 0.2, 1);
       will-change: transform;
     }
 
@@ -106,72 +101,75 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      background-image: radial-gradient(circle, rgba(255, 255, 255, 0.10) 1px, transparent 1px);
-      background-size: 36px 36px;
-      opacity: 0.18;
+      background-image: radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+      background-size: 30px 30px;
       z-index: 0;
     }
 
-    /* Cover Styling */
-    .cover {
-      display: grid;
-      place-items: center;
-      text-align: center;
-      overflow: hidden;
-    }
+    .cover { display: grid; place-items: center; text-align: center; }
 
     .cover-card, .final-card {
       position: relative;
       z-index: 3;
       width: min(92vw, 760px);
-      padding: 35px 25px;
+      padding: 40px 25px;
       border-radius: 34px;
       background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      backdrop-filter: blur(16px);
-      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.72);
-      animation: lift 0.9s ease both;
+      border: 1px solid rgba(255, 215, 0, 0.2); /* Slight gold border for birthday */
+      backdrop-filter: blur(20px);
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(255, 92, 155, 0.1);
+      animation: lift 1s ease both;
     }
 
     @keyframes lift {
-      from { opacity: 0; transform: translateY(22px) scale(0.97); }
+      from { opacity: 0; transform: translateY(30px) scale(0.95); }
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     .cake {
-      font-size: clamp(72px, 16vw, 142px);
-      filter: drop-shadow(0 0 28px rgba(255, 95, 150, 0.9));
-      animation: floatCake 2.4s ease-in-out infinite alternate;
+      font-size: clamp(75px, 16vw, 150px);
+      filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.6));
+      animation: bounceCake 2.5s ease-in-out infinite alternate;
+      cursor: pointer;
     }
 
-    @keyframes floatCake {
-      from { transform: translateY(0) rotate(-1deg); }
-      to { transform: translateY(-10px) rotate(1deg); }
+    @keyframes bounceCake {
+      from { transform: translateY(0) scale(1); }
+      to { transform: translateY(-12px) scale(1.05); }
     }
 
     h1, h2, p { position: relative; z-index: 2; }
 
-    .cover h1 {
-      margin-top: 6px;
-      font-size: clamp(38px, 7vw, 76px);
+    .cover h1, .final-card h2 {
+      margin-top: 10px;
+      font-size: clamp(40px, 8vw, 80px);
       line-height: 1.2;
-      color: var(--pink-primary);
-      text-shadow: 0 0 28px rgba(255, 92, 155, 0.65);
+      background: linear-gradient(to right, #ff5c9b, #ffb6c1, #ff5c9b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 5px 25px rgba(255, 92, 155, 0.4);
       font-weight: 700;
+      animation: shimmer 3s infinite linear;
+      background-size: 200% auto;
+    }
+
+    @keyframes shimmer {
+      to { background-position: 200% center; }
     }
 
     .cover h2 {
-      margin-top: 12px;
-      font-size: clamp(20px, 4vw, 34px);
-      color: #ffe1ec;
+      margin-top: 15px;
+      font-size: clamp(22px, 4vw, 36px);
+      color: var(--gold-accent);
       font-weight: 700;
+      letter-spacing: 2px;
     }
 
     .cover p {
-      margin: 18px auto 0;
+      margin: 20px auto 0;
       max-width: 620px;
-      font-size: clamp(16px, 2vw, 20px);
-      line-height: 1.85;
+      font-size: clamp(16px, 2.2vw, 21px);
+      line-height: 1.8;
       color: var(--text-muted);
     }
 
@@ -179,74 +177,73 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      margin-top: 18px;
-      padding: 11px 22px;
+      margin-top: 20px;
+      padding: 12px 24px;
       border-radius: 999px;
-      background: rgba(255, 92, 155, 0.20);
-      border: 1px solid var(--glass-border);
-      color: #ffd7e6;
+      background: rgba(255, 215, 0, 0.15);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      color: #fff1cc;
       font-weight: 600;
-      letter-spacing: 0.5px;
     }
 
     .start-btn {
-      margin-top: 28px;
+      margin-top: 30px;
       border: 0;
       cursor: pointer;
-      padding: 15px 35px;
+      padding: 16px 40px;
       border-radius: 999px;
       background: var(--pink-gradient);
       color: white;
-      font-size: 18px;
+      font-size: 19px;
       font-weight: 700;
       font-family: var(--font-bengali);
-      box-shadow: 0 18px 45px rgba(255, 77, 136, 0.35);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 15px 35px rgba(255, 77, 136, 0.4);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     .start-btn:hover {
-      transform: scale(1.06) translateY(-3px);
-      box-shadow: 0 25px 55px rgba(255, 77, 136, 0.55);
+      transform: scale(1.08) translateY(-4px);
+      box-shadow: 0 20px 45px rgba(255, 77, 136, 0.6);
+      background: linear-gradient(135deg, #ff6fa8, #ffb6c1);
     }
 
-    /* Chapter Headers */
     .chapter-head {
       position: relative;
       z-index: 3;
       width: min(940px, 100%);
-      margin: 0 auto 28px;
+      margin: 0 auto 30px;
       text-align: center;
-      padding: 20px 20px 25px;
+      padding: 22px 20px 28px;
       border-radius: 30px;
-      background: rgba(255, 255, 255, 0.055);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 215, 0, 0.15);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
 
     .chapter-kicker {
-      color: #ff6fa8;
-      font-size: 15px;
+      color: var(--gold-accent);
+      font-size: 16px;
       font-weight: 700;
       letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .chapter-head h2 {
-      font-size: clamp(30px, 5.8vw, 58px);
+      font-size: clamp(32px, 6vw, 60px);
       line-height: 1.2;
-      margin-bottom: 12px;
+      margin-bottom: 15px;
+      color: var(--pink-primary);
     }
 
     .chapter-head p {
-      max-width: 760px;
+      max-width: 780px;
       margin: 0 auto;
-      color: rgba(255, 255, 255, 0.78);
-      font-size: clamp(15px, 2vw, 19px);
-      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.85);
+      font-size: clamp(16px, 2vw, 20px);
+      line-height: 1.8;
     }
 
-    /* Grids & Memories */
     .memory-grid {
       position: relative;
       z-index: 3;
@@ -254,32 +251,33 @@
       margin: 0 auto;
       display: grid;
       grid-template-columns: repeat(6, 1fr);
-      grid-auto-rows: 150px;
-      gap: 15px;
+      grid-auto-rows: 155px;
+      gap: 16px;
     }
 
     .memory-card {
       position: relative;
       overflow: hidden;
       border-radius: 24px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
       cursor: pointer;
       opacity: 0;
-      transform: translateY(18px) scale(0.98);
-      animation: cardIn 0.7s ease forwards;
+      transform: translateY(25px) scale(0.96);
+      animation: cardIn 0.8s ease forwards;
     }
 
-    .memory-card:nth-child(1) { grid-column: span 2; grid-row: span 2; animation-delay: 0.02s; }
-    .memory-card:nth-child(2) { grid-column: span 2; grid-row: span 1; animation-delay: 0.08s; }
-    .memory-card:nth-child(3) { grid-column: span 2; grid-row: span 2; animation-delay: 0.14s; }
-    .memory-card:nth-child(4) { grid-column: span 2; grid-row: span 1; animation-delay: 0.20s; }
-    .memory-card:nth-child(5) { grid-column: span 2; grid-row: span 2; animation-delay: 0.26s; }
-    .memory-card:nth-child(6) { grid-column: span 2; grid-row: span 1; animation-delay: 0.32s; }
-    .memory-card:nth-child(7) { grid-column: span 3; grid-row: span 2; animation-delay: 0.38s; }
-    .memory-card:nth-child(8) { grid-column: span 3; grid-row: span 2; animation-delay: 0.44s; }
-    .memory-card:nth-child(9) { grid-column: span 2; grid-row: span 2; animation-delay: 0.50s; }
+    /* Assigning grid spans exactly as before to preserve structure */
+    .memory-card:nth-child(1) { grid-column: span 2; grid-row: span 2; animation-delay: 0.1s; }
+    .memory-card:nth-child(2) { grid-column: span 2; grid-row: span 1; animation-delay: 0.2s; }
+    .memory-card:nth-child(3) { grid-column: span 2; grid-row: span 2; animation-delay: 0.3s; }
+    .memory-card:nth-child(4) { grid-column: span 2; grid-row: span 1; animation-delay: 0.4s; }
+    .memory-card:nth-child(5) { grid-column: span 2; grid-row: span 2; animation-delay: 0.5s; }
+    .memory-card:nth-child(6) { grid-column: span 2; grid-row: span 1; animation-delay: 0.6s; }
+    .memory-card:nth-child(7) { grid-column: span 3; grid-row: span 2; animation-delay: 0.7s; }
+    .memory-card:nth-child(8) { grid-column: span 3; grid-row: span 2; animation-delay: 0.8s; }
+    .memory-card:nth-child(9) { grid-column: span 2; grid-row: span 2; animation-delay: 0.9s; }
 
     @keyframes cardIn {
       to { opacity: 1; transform: translateY(0) scale(1); }
@@ -290,44 +288,45 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.65s ease, filter 0.65s ease;
+      transition: transform 0.7s ease, filter 0.7s ease;
     }
 
     .memory-card:hover img {
-      transform: scale(1.1);
-      filter: brightness(1.1) saturate(1.1);
+      transform: scale(1.12);
+      filter: brightness(1.15) contrast(1.05);
     }
 
     .memory-card::after {
-      content: "❤️";
+      content: "✨";
       position: absolute;
       right: 15px;
       bottom: 12px;
-      font-size: 20px;
+      font-size: 22px;
       opacity: 0;
-      transform: scale(0.5);
-      transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform: translateY(10px) scale(0.5);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     .memory-card:hover::after {
       opacity: 1;
-      transform: scale(1);
+      transform: translateY(0) scale(1);
     }
 
     .quote-box {
       position: relative;
       z-index: 3;
-      width: min(820px, 100%);
-      margin: 30px auto 0;
-      padding: 20px 25px;
+      width: min(850px, 100%);
+      margin: 35px auto 0;
+      padding: 22px 28px;
       border-radius: 26px;
-      background: rgba(255, 92, 155, 0.11);
-      border: 1px solid rgba(255, 255, 255, 0.13);
-      color: #ffdce9;
+      background: linear-gradient(135deg, rgba(255, 92, 155, 0.15), rgba(255, 215, 0, 0.05));
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffe8f0;
       text-align: center;
-      font-size: clamp(18px, 2.8vw, 26px);
-      line-height: 1.65;
+      font-size: clamp(19px, 3vw, 28px);
+      line-height: 1.6;
       font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     }
 
     .video-grid {
@@ -336,66 +335,58 @@
       width: min(950px, 100%);
       margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px;
     }
 
     video {
       width: 100%;
       border-radius: 26px;
       background: #000;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+      border: 2px solid rgba(255, 92, 155, 0.2);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
     }
 
-    /* Final Slide */
     .final {
       display: grid;
       place-items: center;
       text-align: center;
       background:
-        radial-gradient(circle at center, rgba(255, 92, 155, 0.22), transparent 42%),
+        radial-gradient(circle at center, rgba(255, 215, 0, 0.15), transparent 50%),
         var(--bg-dark);
-    }
-
-    .final-card h2 {
-      color: var(--pink-primary);
-      font-size: clamp(36px, 7vw, 78px);
-      line-height: 1.2;
-      margin-bottom: 18px;
     }
 
     .final-card p {
       color: var(--text-muted);
-      font-size: clamp(16px, 2.4vw, 22px);
+      font-size: clamp(17px, 2.5vw, 23px);
       line-height: 1.9;
-      margin-top: 14px;
+      margin-top: 15px;
     }
 
     .signature {
-      margin-top: 30px;
-      color: #ffdce9;
-      font-size: 26px;
+      margin-top: 35px;
+      color: var(--gold-accent);
+      font-size: 28px;
       font-weight: 700;
       font-style: italic;
+      letter-spacing: 1px;
     }
 
-    /* UI Elements */
     .progress {
       position: fixed;
       left: 50%;
-      bottom: 20px;
+      bottom: 25px;
       transform: translateX(-50%);
       z-index: 70;
-      width: min(450px, 85vw);
-      padding: 12px 18px;
+      width: min(480px, 85vw);
+      padding: 12px 20px;
       border-radius: 999px;
-      background: rgba(0, 0, 0, 0.65);
+      background: rgba(10, 5, 10, 0.7);
       border: 1px solid var(--glass-border);
-      backdrop-filter: blur(14px);
+      backdrop-filter: blur(15px);
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 16px;
     }
 
     .bar {
@@ -403,44 +394,44 @@
       height: 8px;
       overflow: hidden;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.12);
     }
 
     .bar-fill {
       height: 100%;
       width: 0%;
       border-radius: 999px;
-      background: var(--pink-gradient);
-      transition: width 0.45s ease;
+      background: var(--gold-gradient); /* Gold for birthday vibe */
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .counter {
-      min-width: 54px;
+      min-width: 55px;
       text-align: right;
-      color: rgba(255, 255, 255, 0.85);
-      font-size: 14px;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 15px;
       font-weight: 700;
     }
 
     .hint {
       position: fixed;
-      top: 20px;
+      top: 25px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 70;
-      padding: 10px 20px;
+      padding: 10px 22px;
       border-radius: 999px;
-      background: rgba(0, 0, 0, 0.55);
+      background: rgba(10, 5, 10, 0.6);
       border: 1px solid var(--glass-border);
       backdrop-filter: blur(12px);
-      color: rgba(255, 255, 255, 0.85);
-      font-size: 14px;
+      color: var(--gold-accent);
+      font-size: 15px;
       font-weight: 600;
       text-align: center;
       letter-spacing: 0.5px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
 
-    /* Lightbox */
     .lightbox {
       position: fixed;
       inset: 0;
@@ -448,8 +439,8 @@
       display: none;
       place-items: center;
       padding: 20px;
-      background: rgba(0, 0, 0, 0.95);
-      backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.96);
+      backdrop-filter: blur(10px);
     }
 
     .lightbox.active { display: grid; }
@@ -459,35 +450,34 @@
       max-height: 90vh;
       object-fit: contain;
       border-radius: 16px;
-      box-shadow: 0 20px 80px rgba(0, 0, 0, 0.85);
-      animation: zoomIn 0.3s ease;
+      box-shadow: 0 20px 80px rgba(255, 92, 155, 0.3);
+      animation: zoomIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     @keyframes zoomIn {
-      from { transform: scale(0.9); opacity: 0; }
+      from { transform: scale(0.85); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
     }
 
     .close-lightbox {
       position: fixed;
-      top: 20px;
-      right: 25px;
+      top: 25px;
+      right: 30px;
       color: white;
       font-size: 45px;
       cursor: pointer;
       z-index: 250;
-      transition: transform 0.2s;
+      transition: all 0.3s ease;
     }
 
-    .close-lightbox:hover { transform: scale(1.1) rotate(90deg); color: var(--pink-primary); }
+    .close-lightbox:hover { transform: scale(1.2) rotate(90deg); color: var(--pink-primary); }
 
-    /* Hearts */
-    .heart {
+    /* Birthday Floating Elements */
+    .float-item {
       position: fixed;
       top: -20px;
       z-index: 1;
       pointer-events: none;
-      color: rgba(255, 120, 170, 0.35);
       animation: fall linear forwards;
     }
 
@@ -495,9 +485,17 @@
       to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
     }
 
-    /* Responsive Design */
+    /* Fireworks/Confetti for Final Slide */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #f00;
+      opacity: 0;
+    }
+
     @media (max-width: 760px) {
-      .slide { padding: 80px 5vw 90px; }
+      .slide { padding: 85px 5vw 95px; }
       
       .memory-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -518,39 +516,36 @@
         grid-row: span 2;
       }
 
-      .chapter-head { margin-bottom: 18px; padding: 18px; }
-      .quote-box { margin-top: 20px; padding: 18px; }
+      .chapter-head { margin-bottom: 20px; padding: 18px; }
+      .quote-box { margin-top: 22px; padding: 18px; font-size: 17px; }
       .hint { width: max-content; max-width: 90vw; }
-      .music-toggle { top: 70px; right: 15px; } /* Moved slightly down on mobile so it doesn't overlap hint */
+      .music-toggle { top: 75px; right: 15px; width: 40px; height: 40px; }
+      .start-btn { padding: 14px 30px; font-size: 17px; }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Background Music Element -->
-  <!-- মিউজিক ফাইল যোগ করতে 'your-music-file.mp3' এর জায়গায় তোমার গানের ফাইলের নাম দাও -->
   <audio id="bgMusic" loop>
     <source src="your-music-file.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Music Toggle Button -->
   <button id="musicToggle" class="music-toggle" onclick="toggleMusic()" title="Play/Pause Music">🎵</button>
 
-  <div class="hint">বাম/ডান দিকে swipe করো ❤️</div>
+  <div class="hint">বাম/ডান দিকে swipe করো ✨</div>
 
   <main class="deck" id="deck">
     <section class="slide cover">
       <div class="cover-card">
-        <div class="cake">🎂</div>
-        <h1>শুভ জন্মদিন Rita</h1>
+        <div class="cake" onclick="createBurst()">🎂</div>
+        <h1>শুভ জন্মদিন রীতা</h1>
         <h2>১৩ / ০৬ / ২০২৬</h2>
-        <div class="date-pill">ভালোবাসা দিয়ে বানানো স্মৃতির ওয়েবসাইট</div>
+        <div class="date-pill">তোমার জন্মদিনের বিশেষ স্মৃতির ওয়েবসাইট</div>
         <p>
-          এটা শুধু একটা ওয়েবসাইট না।  
-          এটা আমাদের কিছু হাসি, কিছু রঙ, কিছু পথচলা আর অনেকগুলো নরম স্মৃতির ছোট্ট জায়গা।
+          আজ তোমার জন্মদিন। এই দিনটা আমার কাছেও এক বড় উৎসব, কারণ এই দিনেই পৃথিবীর আলো দেখেছিলে তুমি, আর আমার জীবনের সবচেয়ে সুন্দর গল্পটার শুরু হয়েছিল।
         </p>
-        <button class="start-btn" onclick="startJourney()">স্মৃতির দরজা খোলো ❤️</button>
+        <button class="start-btn" onclick="startJourney()">জন্মদিনের উপহার খোলো 🎈</button>
       </div>
     </section>
   </main>
@@ -562,16 +557,16 @@
 
   <div class="lightbox" id="lightbox" onclick="closeLightbox()">
     <span class="close-lightbox">&times;</span>
-    <img id="lightboxImg" src="" alt="Rita memory">
+    <img id="lightboxImg" src="" alt="রীতার স্মৃতি">
   </div>
 
   <script>
-    // Chapter Data
+    // Chapter Data - Grouped by message and Birthday theme
     const chapters = [
       {
-        kicker: "অধ্যায় ১",
+        kicker: "অধ্যায় ১ | প্রথম দেখা",
         title: "ভালোবাসার নাম হওয়ার আগে",
-        text: "শুরুটা খুব সাধারণ ছিল। কিছু ছবি, কিছু লাজুক হাসি, আর ধীরে ধীরে সাধারণ দিনগুলোই স্মৃতি হয়ে উঠেছিল।",
+        text: "আজকের এই বিশেষ লগ্নে মনে পড়ছে সেই প্রথম দিনগুলোর কথা। কিছু সাধারণ ছবি, কিছু লাজুক হাসি, আর ধীরে ধীরে তুমি হয়ে উঠলে আমার জীবনের সবচেয়ে দামি মানুষ।",
         quote: "কিছু স্মৃতি চিৎকার করে শুরু হয় না, চুপচাপ হৃদয়ের ভেতর জায়গা করে নেয়।",
         images: [
           "WhatsApp Image 2026-05-24 at 6.23.11 PM.jpeg",
@@ -584,9 +579,9 @@
         ]
       },
       {
-        kicker: "অধ্যায় ২",
+        kicker: "অধ্যায় ২ | রঙের উৎসব",
         title: "আমাদের রঙের দিনগুলো",
-        text: "হোলির ছবিগুলোতে আছে দুষ্টুমি, রঙ, ক্লান্ত মুখের হাসি, আর একসাথে থাকার একদম আসল আনন্দ।",
+        text: "তোমার জন্মদিনের মতো হোলির দিনগুলোও ছিল রঙিন। ছবিগুলোতে আছে দুষ্টুমি, রঙ, আর একসাথে থাকার একদম আসল আনন্দ।",
         quote: "তোমার পাশে থাকলে এলোমেলো রঙও সুন্দর হয়ে যায়।",
         images: [
           "WhatsApp Image 2026-05-24 at 6.23.38 PM (1).jpeg",
@@ -600,9 +595,9 @@
         ]
       },
       {
-        kicker: "অধ্যায় ৩",
+        kicker: "অধ্যায় ৩ | মুগ্ধতা",
         title: "যে মেয়েটার প্রেমে পড়লাম",
-        text: "Rita, তোমার সৌন্দর্য শুধু সাজে নয়—তোমার চোখে, শান্ত হাসিতে, আর স্বাভাবিক উপস্থিতিতে।",
+        text: "রীতা, তোমার সৌন্দর্য শুধু সাজে নয়—তোমার চোখে, শান্ত হাসিতে, আর স্বাভাবিক উপস্থিতিতে। আজ তুমি আরও এক বছর সুন্দর হলে।",
         quote: "কেউ কেউ শুধু সুন্দর দেখায়, তুমি সুন্দর অনুভব করাও।",
         images: [
           "WhatsApp Image 2026-05-24 at 6.23.41 PM (1).jpeg",
@@ -614,9 +609,9 @@
         ]
       },
       {
-        kicker: "অধ্যায় ৪",
+        kicker: "অধ্যায় ৪ | একসাথের পথচলা",
         title: "ছোট ছোট পথচলা",
-        text: "রাস্তা, বাস, স্টেশন, অপেক্ষা—জায়গাগুলো বিশেষ ছিল না, কিন্তু তোমার জন্য সেগুলো স্মৃতি হয়ে গেছে।",
+        text: "রাস্তা, বাস, স্টেশন, অপেক্ষা—জায়গাগুলো বিশেষ ছিল না, কিন্তু তোমার জন্য সেগুলো আমার জীবনের সেরা স্মৃতি হয়ে গেছে।",
         quote: "প্রতিটা পথ যেন একটু একটু করে তোমার দিকেই নিয়ে গেছে।",
         images: [
           "WhatsApp Image 2026-05-24 at 6.23.43 PM (2).jpeg",
@@ -628,9 +623,9 @@
         ]
       },
       {
-        kicker: "অধ্যায় ৫",
-        title: "পিঙ্ক ড্রেসের গল্প",
-        text: "এই অধ্যায়টা সবচেয়ে সিনেম্যাটিক—গোলাপি রং, বাগান, মন্দিরের আলো, আর একে অপরের দিকে তাকানোর নরম মুহূর্ত।",
+        kicker: "অধ্যায় ৫ | সিনেমার মতো",
+        title: "গোলাপি স্মৃতির পাতা",
+        text: "এই অধ্যায়টা সবচেয়ে সিনেম্যাটিক—গোলাপি রং, বাগান, মন্দিরের আলো, আর একে অপরের দিকে তাকানোর নরম মুহূর্ত। ঠিক যেন জন্মদিনের সুন্দর রূপকথার মতো।",
         quote: "কিছু দিন সাধারণ থাকে না, পরে বুঝি সেগুলো অমূল্য ছিল।",
         images: [
           "WhatsApp Image 2026-05-24 at 6.23.45 PM (2).jpeg",
@@ -643,9 +638,9 @@
         ]
       },
       {
-        kicker: "অধ্যায় ৬",
+        kicker: "অধ্যায় ৬ | বিশ্বাস",
         title: "নিরাপদ জায়গা",
-        text: "কিছু ছবি ভালোবাসা দেখায়, কিছু ছবি বিশ্বাস দেখায়। এই অধ্যায়টা সেই শান্ত আশ্রয়ের।",
+        text: "কিছু ছবি ভালোবাসা দেখায়, কিছু ছবি বিশ্বাস দেখায়। আজকের দিনে আমি তোমাকে বলতে চাই, তুমিই আমার সবচেয়ে শান্তির আর নিরাপদ আশ্রয়।",
         quote: "সব ভালোবাসা শব্দ করে না, কিছু ভালোবাসা শুধু শান্তি দেয়।",
         images: [
           "WhatsApp Image 2026-05-24 at 6.23.48 PM (1).jpeg",
@@ -657,23 +652,10 @@
         ]
       },
       {
-        kicker: "অধ্যায় ৭",
-        title: "চুপচাপ ভালোবাসা",
-        text: "সবচেয়ে সুন্দর মুহূর্তগুলো সবসময় নাটকীয় হয় না। কখনো শুধু পাশে দাঁড়ানোও যথেষ্ট।",
-        quote: "তুমি আমার সবচেয়ে সহজ জায়গা হয়ে গেছো।",
-        images: [
-          "WhatsApp Image 2026-05-24 at 6.23.50 PM (1).jpeg",
-          "WhatsApp Image 2026-05-24 at 6.23.50 PM.jpeg",
-          "WhatsApp Image 2026-05-24 at 6.23.51 PM (1).jpeg",
-          "WhatsApp Image 2026-05-24 at 6.23.51 PM (2).jpeg",
-          "WhatsApp Image 2026-05-24 at 6.23.51 PM.jpeg",
-          "WhatsApp Image 2026-05-24 at 6.23.52 PM (1).jpeg"
-        ]
-      },
-      {
-        kicker: "অধ্যায় ৮",
-        title: "ছোট জিনিসগুলো",
-        text: "ফুল, চুড়ি, হাতের লেখা, ছোট ছোট জিনিস—এসবই প্রমাণ করে স্মৃতি শুধু মুখে নয়, খুঁটিনাটিতেও থাকে।",
+        // Swapped Content - Now Chapter 7 is "ছোট জিনিসগুলো"
+        kicker: "অধ্যায় ৭ | খুঁটিনাটি",
+        title: "ছোট ছোট জিনিস",
+        text: "ফুল, চুড়ি, হাতের লেখা, ছোট ছোট জিনিস—এসবই প্রমাণ করে স্মৃতি শুধু মুখে নয়, আমাদের প্রতিটা দিনের খুঁটিনাটিতেও থাকে। তোমার জন্মদিনে এই ছোট স্মৃতিগুলোই সবচেয়ে বড় উপহার।",
         quote: "ভালোবাসা অনেক সময় ছোট ছোট জিনিসে লুকিয়ে থাকে।",
         images: [
           "WhatsApp Image 2026-05-24 at 6.23.52 PM (2).jpeg",
@@ -685,10 +667,25 @@
         ]
       },
       {
-        kicker: "অধ্যায় ৯",
-        title: "Rita-র সৌন্দর্য",
-        text: "এই অধ্যায়টা Rita-র সেই ছবিগুলোর জন্য, যেখানে সে পরিণত, সুন্দর, কোমল আর একদম নিজের মতো।",
-        quote: "কিছু মুখ কবিতার মতো মনে থাকে।",
+        // Swapped Content - Now Chapter 8 is "চুপচাপ ভালোবাসা"
+        kicker: "অধ্যায় ৮ | নৈঃশব্দ্য",
+        title: "চুপচাপ ভালোবাসা",
+        text: "সবচেয়ে সুন্দর মুহূর্তগুলো সবসময় নাটকীয় হয় না। কখনো শুধু তোমার পাশে শান্ত হয়ে বসে থাকাও আমার কাছে পৃথিবীর সবচেয়ে সুন্দর অনুভূতি।",
+        quote: "তুমি আমার জীবনে পাওয়া সবচেয়ে সহজ ও শান্তির জায়গা।",
+        images: [
+          "WhatsApp Image 2026-05-24 at 6.23.50 PM (1).jpeg",
+          "WhatsApp Image 2026-05-24 at 6.23.50 PM.jpeg",
+          "WhatsApp Image 2026-05-24 at 6.23.51 PM (1).jpeg",
+          "WhatsApp Image 2026-05-24 at 6.23.51 PM (2).jpeg",
+          "WhatsApp Image 2026-05-24 at 6.23.51 PM.jpeg",
+          "WhatsApp Image 2026-05-24 at 6.23.52 PM (1).jpeg"
+        ]
+      },
+      {
+        kicker: "অধ্যায় ৯ | রীতার সৌন্দর্য",
+        title: "আমার রীতা",
+        text: "এই অধ্যায়টা শুধু আজকের 'বার্থডে গার্ল' রীতা-র জন্য। যেখানে সে পরিণত, সুন্দর, কোমল আর একদম নিজের মতো। তুমি যেমন আছো, ঠিক সেভাবেই থেকো।",
+        quote: "কিছু মুখ কবিতার মতো মনে থাকে, আর তোমার মুখটা আমার জীবনের সেরা কবিতা।",
         images: [
           "WhatsApp Image 2026-05-24 at 6.23.54 PM.jpeg",
           "WhatsApp Image 2026-05-24 at 6.23.55 PM (1).jpeg",
@@ -725,7 +722,7 @@
         <div class="memory-grid">
           ${chapter.images.map(img => `
             <div class="memory-card">
-              <img src="${img}" alt="Rita memory" loading="lazy" onclick="openLightbox('${img}')">
+              <img src="${img}" alt="রীতার স্মৃতি" loading="lazy" onclick="openLightbox('${img}')">
             </div>
           `).join("")}
         </div>
@@ -741,9 +738,9 @@
     videoSection.className = "slide";
     videoSection.innerHTML = `
       <div class="chapter-head">
-        <div class="chapter-kicker">অধ্যায় ১০</div>
-        <h2>চলমান স্মৃতি</h2>
-        <p>কিছু স্মৃতি শুধু ছবি হয়ে থাকে না—সেগুলো নড়ে, হাসে, শ্বাস নেয়।</p>
+        <div class="chapter-kicker">অধ্যায় ১০ | জীবন্ত স্মৃতি</div>
+        <h2>চলমান ফ্রেম</h2>
+        <p>কিছু স্মৃতি শুধু ছবি হয়ে থাকে না—সেগুলো নড়ে, হাসে, শ্বাস নেয়। তোমার হাসির এই ফ্রেমগুলো আমার খুব প্রিয়।</p>
       </div>
 
       <div class="video-grid">
@@ -762,18 +759,17 @@
     const finalSection = document.createElement("section");
     finalSection.className = "slide final";
     finalSection.innerHTML = `
-      <div class="final-card">
-        <div class="cake">🎂</div>
-        <h2>শুভ জন্মদিন Rita ❤️</h2>
+      <div class="final-card" id="finalCard">
+        <div class="cake" style="font-size: 100px;">🎉🎂🎉</div>
+        <h2>শুভ জন্মদিন রীতা ❤️</h2>
         <p>
-          ১৩/০৬/২০২৬ — এই ছোট্ট ওয়েবসাইটটা তোমার জন্য আমার উপহার।
-          এটা নিখুঁত হওয়ার জন্য না, এটা সত্যি হওয়ার জন্য।
+          ১৩/০৬/২০২৬ — তোমার জন্মদিনের এই বিশেষ মুহূর্তে আমি শুধু এটুকুই চাই তুমি সবসময় ভালো থেকো, আনন্দে থেকো।
         </p>
         <p>
           কোটি কোটি মানুষের ভিড়ে, কোনোভাবে আমাদের দিনগুলো একে অপরকে খুঁজে পেয়েছিল।
-          আর আমার জীবনের নরম স্মৃতিগুলোর মধ্যে তুমি সবসময় থাকবে।
+          আমার জীবনের এই সুন্দর স্মৃতিগুলোর মধ্যে তুমি সবসময় উজ্জ্বল হয়ে থাকবে।
         </p>
-        <div class="signature">— Anubhab</div>
+        <div class="signature">অনেক ভালোবাসা, <br>— অনুভব</div>
       </div>
     `;
     deck.appendChild(finalSection);
@@ -790,6 +786,11 @@
       deck.style.transform = `translateX(-${currentSlide * 100}vw)`;
       counter.textContent = `${currentSlide + 1} / ${totalSlides}`;
       barFill.style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+      
+      // Trigger confetti if it's the last slide
+      if(currentSlide === totalSlides - 1) {
+        triggerConfetti();
+      }
     }
 
     function nextSlide() {
@@ -811,14 +812,13 @@
       updateSlide();
     }
 
-    // Music & Start Journey Function
     function startJourney() {
-      goToSlide(1);
-      // Try to play music when user first interacts
+      createBurst();
+      setTimeout(() => goToSlide(1), 300); // slight delay for the burst effect
       if (bgMusic.paused) {
         bgMusic.play().then(() => {
           musicBtn.classList.add("playing");
-        }).catch(err => console.log("Audio autoplay prevented by browser"));
+        }).catch(err => console.log("Audio autoplay prevented"));
       }
     }
 
@@ -832,18 +832,13 @@
       }
     }
 
-    // Event Listeners (Keyboard & Touch)
     document.addEventListener("keydown", e => {
       if (e.key === "ArrowRight") nextSlide();
       if (e.key === "ArrowLeft") prevSlide();
       if (e.key === "Escape") closeLightbox();
     });
 
-    let startX = 0;
-    let startY = 0;
-    let endX = 0;
-    let endY = 0;
-
+    let startX = 0, startY = 0, endX = 0, endY = 0;
     document.addEventListener("touchstart", e => {
       startX = e.changedTouches[0].screenX;
       startY = e.changedTouches[0].screenY;
@@ -858,14 +853,12 @@
     function handleSwipe() {
       const diffX = startX - endX;
       const diffY = startY - endY;
-
       if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 55) {
         if (diffX > 0) nextSlide();
         else prevSlide();
       }
     }
 
-    // Lightbox Logic
     function openLightbox(src) {
       document.getElementById("lightboxImg").src = src;
       document.getElementById("lightbox").classList.add("active");
@@ -875,19 +868,78 @@
       document.getElementById("lightbox").classList.remove("active");
     }
 
-    // Heart Animation Logic
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.textContent = Math.random() > 0.5 ? "❤️" : "💕";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.fontSize = Math.random() * 15 + 14 + "px";
-      heart.style.animationDuration = Math.random() * 4 + 6 + "s";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 9000);
+    // Floating Birthday Items
+    const items = ["❤️", "✨", "🎈", "💕", "🌟"];
+    function createFloatItem() {
+      const item = document.createElement("div");
+      item.className = "float-item";
+      item.textContent = items[Math.floor(Math.random() * items.length)];
+      item.style.left = Math.random() * 100 + "vw";
+      item.style.fontSize = Math.random() * 15 + 15 + "px";
+      item.style.animationDuration = Math.random() * 4 + 6 + "s";
+      item.style.color = Math.random() > 0.5 ? "rgba(255, 120, 170, 0.4)" : "rgba(255, 215, 0, 0.4)";
+      document.body.appendChild(item);
+      setTimeout(() => item.remove(), 9000);
+    }
+    setInterval(createFloatItem, 700);
+
+    // Confetti Effect for clicks and final slide
+    function createBurst() {
+      for(let i=0; i<30; i++) {
+        const item = document.createElement("div");
+        item.className = "float-item";
+        item.textContent = items[Math.floor(Math.random() * items.length)];
+        item.style.left = (50 + (Math.random() * 20 - 10)) + "vw";
+        item.style.top = "50vh";
+        item.style.fontSize = Math.random() * 20 + 20 + "px";
+        
+        const angle = Math.random() * Math.PI * 2;
+        const velocity = 100 + Math.random() * 100;
+        const tx = Math.cos(angle) * velocity;
+        const ty = Math.sin(angle) * velocity - 150;
+        
+        item.style.transform = `translate(${tx}px, ${ty}px)`;
+        item.style.transition = "transform 1.5s ease-out, opacity 1.5s";
+        
+        document.body.appendChild(item);
+        
+        setTimeout(() => {
+          item.style.opacity = "0";
+          item.style.transform = `translate(${tx}px, ${ty + 200}px)`;
+        }, 50);
+        
+        setTimeout(() => item.remove(), 1500);
+      }
     }
 
-    setInterval(createHeart, 850);
+    function triggerConfetti() {
+      const colors = ['#ff5c9b', '#ffd700', '#ffffff', '#ffb6c1'];
+      for(let i=0; i<80; i++) {
+        let conf = document.createElement('div');
+        conf.style.position = 'absolute';
+        conf.style.width = Math.random() * 10 + 5 + 'px';
+        conf.style.height = Math.random() * 10 + 5 + 'px';
+        conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        conf.style.left = Math.random() * 100 + 'vw';
+        conf.style.top = '-10px';
+        conf.style.zIndex = '999';
+        conf.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+        document.body.appendChild(conf);
+
+        let duration = Math.random() * 3 + 2;
+        conf.animate([
+          { transform: `translate3d(0,0,0) rotate(0deg)`, opacity: 1 },
+          { transform: `translate3d(${Math.random()*200 - 100}px, 100vh, 0) rotate(${Math.random()*360}deg)`, opacity: 0 }
+        ], {
+          duration: duration * 1000,
+          easing: 'cubic-bezier(.37,0,.63,1)',
+          fill: 'forwards'
+        });
+
+        setTimeout(() => conf.remove(), duration * 1000);
+      }
+    }
+
     updateSlide();
   </script>
 </body>

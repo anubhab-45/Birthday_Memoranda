@@ -42,30 +42,6 @@
       z-index: -1; pointer-events: none;
     }
 
-    /* Music Button */
-    .music-btn {
-      position: fixed;
-      top: 20px; right: 20px;
-      z-index: 100;
-      width: 50px; height: 50px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255,255,255,0.2);
-      color: white; font-size: 24px;
-      cursor: pointer;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 0 20px rgba(255, 42, 117, 0.4);
-      transition: all 0.3s ease;
-    }
-    .music-btn:hover { transform: scale(1.1); background: rgba(255, 42, 117, 0.3); }
-    .music-btn.playing { animation: pulse 2s infinite; border-color: var(--pink-neon); }
-
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(255, 42, 117, 0.7); }
-      70% { box-shadow: 0 0 0 15px rgba(255, 42, 117, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(255, 42, 117, 0); }
-    }
-
     /* Hero Section */
     .hero {
       height: 100vh;
@@ -75,11 +51,41 @@
       position: relative;
     }
 
+    .hero .cake-container {
+      position: relative;
+      cursor: pointer;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .hero .cake-container:hover {
+      transform: scale(1.1);
+    }
+
     .hero .cake {
-      font-size: 100px;
+      font-size: 110px;
       filter: drop-shadow(0 0 30px var(--gold));
       animation: float 3s ease-in-out infinite;
-      margin-bottom: 20px;
+    }
+
+    .tap-hint {
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 15px;
+      color: var(--gold);
+      background: rgba(0, 0, 0, 0.5);
+      padding: 5px 15px;
+      border-radius: 20px;
+      white-space: nowrap;
+      border: 1px solid rgba(255, 215, 0, 0.4);
+      animation: pulseHint 1.5s infinite alternate;
+    }
+
+    @keyframes pulseHint {
+      from { opacity: 0.6; transform: translateX(-50%) scale(0.95); }
+      to { opacity: 1; transform: translateX(-50%) scale(1.05); box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
     }
 
     @keyframes float {
@@ -107,7 +113,7 @@
       display: flex; flex-direction: column; align-items: center;
       animation: bounce 2s infinite; opacity: 0.8;
     }
-    .scroll-indicator span { font-size: 24px; margin-top: 5px; }
+    .scroll-indicator span { font-size: 24px; margin-top: 5px; color: var(--pink-neon); }
 
     @keyframes bounce {
       0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
@@ -167,24 +173,24 @@
 
     /* Masonry Image Collage - No Cropping! */
     .collage {
-      column-count: 2; /* 2 columns on mobile */
+      column-count: 2;
       column-gap: 10px;
       margin-top: 15px;
     }
     
     @media (min-width: 768px) {
-      .collage { column-count: 3; } /* 3 columns on desktop */
+      .collage { column-count: 3; }
     }
 
     .collage img {
       width: 100%;
-      height: auto; /* Height auto ensures the full picture is visible */
+      height: auto;
       display: block;
       margin-bottom: 10px;
       border-radius: 10px;
       border: 1px solid rgba(255, 255, 255, 0.15);
       cursor: pointer;
-      break-inside: avoid; /* Prevents images from breaking across columns */
+      break-inside: avoid;
       transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
     }
     
@@ -224,6 +230,13 @@
     
     @keyframes zoom { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
+    /* Birthday Floating Elements / Confetti */
+    .float-item {
+      position: fixed;
+      z-index: 100;
+      pointer-events: none;
+    }
+
     /* Responsive Timeline */
     @media (max-width: 768px) {
       .timeline::after { left: 30px; }
@@ -235,17 +248,19 @@
 </head>
 <body>
 
-  <!-- Background Music -->
+  <!-- Hidden Audio: Happy Birthday Instrumental -->
   <audio id="bgMusic" loop>
-    <source src="your-music-file.mp3" type="audio/mpeg">
+    <source src="https://upload.wikimedia.org/wikipedia/commons/6/69/Happy_Birthday_to_You_%28instrumental%29.ogg" type="audio/ogg">
   </audio>
-  <button id="musicToggle" class="music-btn" onclick="toggleMusic()" title="Play/Pause">🎵</button>
 
   <div id="particles"></div>
 
   <!-- Hero Section -->
   <section class="hero">
-    <div class="cake">🎂</div>
+    <div class="cake-container" onclick="startMagic(event)">
+      <div class="cake" id="birthdayCake">🎂</div>
+      <div class="tap-hint" id="tapHint">গান শুনতে কেকটিতে ক্লিক করো ✨</div>
+    </div>
     <h1>শুভ জন্মদিন রীতা</h1>
     <p>১৩ / ০৬ / ২০২৬<br>আমাদের একসাথে কাটানো সুন্দর মুহূর্তগুলোর একটা ছোট্ট গল্পের বই...</p>
     <div class="scroll-indicator">
@@ -273,7 +288,7 @@
   </div>
 
   <script>
-    // Data Array
+    // Data Array (Unchanged)
     const chapters = [
       {
         kicker: "অধ্যায় ১ | প্রথম দেখা",
@@ -327,7 +342,7 @@
       {
         kicker: "অধ্যায় ৮ | নৈঃশব্দ্য",
         title: "চুপচাপ ভালোবাসা",
-        text: "সবচেয়ে সুন্দর মুহূর্তগুলো সবসময় নাটকীয় হয় ঘনঘন। কখনো শুধু তোমার পাশে শান্ত হয়ে বসে থাকাও আমার কাছে পৃথিবীর সবচেয়ে সুন্দর অনুভূতি।",
+        text: "সবচেয়ে সুন্দর মুহূর্তগুলো সবসময় নাটকীয় হয় না। কখনো শুধু তোমার পাশে শান্ত হয়ে বসে থাকাও আমার কাছে পৃথিবীর সবচেয়ে সুন্দর অনুভূতি।",
         quote: "তুমি আমার জীবনে পাওয়া সবচেয়ে সহজ ও শান্তির জায়গা।",
         images: ["WhatsApp Image 2026-05-24 at 6.23.50 PM (1).jpeg", "WhatsApp Image 2026-05-24 at 6.23.50 PM.jpeg", "WhatsApp Image 2026-05-24 at 6.23.51 PM (1).jpeg", "WhatsApp Image 2026-05-24 at 6.23.51 PM.jpeg"]
       },
@@ -377,7 +392,7 @@
     `;
     timeline.appendChild(vidDiv);
 
-    // Scroll Animation (Intersection Observer)
+    // Scroll Animation
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -388,17 +403,59 @@
 
     document.querySelectorAll('.chapter').forEach(el => observer.observe(el));
 
-    // Music Control
-    const bgMusic = document.getElementById("bgMusic");
-    const musicBtn = document.getElementById("musicToggle");
-    
-    function toggleMusic() {
-      if (bgMusic.paused) {
-        bgMusic.play();
-        musicBtn.classList.add("playing");
+    // Magic Function: Play Music and Confetti
+    let isPlaying = false;
+    function startMagic(event) {
+      const bgMusic = document.getElementById("bgMusic");
+      const hint = document.getElementById("tapHint");
+      
+      if(!isPlaying) {
+        bgMusic.play().then(() => {
+          isPlaying = true;
+          hint.style.opacity = "0"; // Hide the hint after playing
+          setTimeout(() => hint.style.display = "none", 500);
+        }).catch(e => console.log("Audio playback failed: ", e));
       } else {
+        // If clicked again, it acts as pause/play toggle
         bgMusic.pause();
-        musicBtn.classList.remove("playing");
+        isPlaying = false;
+      }
+
+      // Confetti Burst at click position
+      const rect = event.target.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+      createBurst(x, y);
+    }
+
+    // Confetti Burst Effect
+    function createBurst(x, y) {
+      const items = ["🎉", "✨", "🎈", "💖", "🌟"];
+      for(let i=0; i<25; i++) {
+        const item = document.createElement("div");
+        item.className = "float-item";
+        item.textContent = items[Math.floor(Math.random() * items.length)];
+        item.style.left = x + "px";
+        item.style.top = y + "px";
+        item.style.fontSize = Math.random() * 20 + 20 + "px";
+        
+        const angle = Math.random() * Math.PI * 2;
+        const velocity = 100 + Math.random() * 150;
+        const tx = Math.cos(angle) * velocity;
+        const ty = Math.sin(angle) * velocity - 100;
+        
+        item.style.transform = `translate(${tx}px, ${ty}px)`;
+        item.style.transition = "transform 1s ease-out, opacity 1s ease-in";
+        
+        document.body.appendChild(item);
+        
+        // Fade out
+        setTimeout(() => {
+          item.style.opacity = "0";
+          item.style.transform = `translate(${tx}px, ${ty + 100}px)`;
+        }, 50);
+        
+        setTimeout(() => item.remove(), 1000);
       }
     }
 
